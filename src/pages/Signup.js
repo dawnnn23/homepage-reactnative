@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Logo from '../components/Logo';
-//import Form from '../components/Form';
 
 export default class Signup extends Component {
 
@@ -14,7 +12,7 @@ export default class Signup extends Component {
     register = () => {
         //Post data to our express backend point
 
-        fetch('enteraddresshere',{
+        fetch('api/register',{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',

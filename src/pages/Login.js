@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput, Image } from 'react-native';
-import {Actions} from 'react-native-router-flux';
-
-//import Logo from '../components/Logo';
-//import Form from '../components/Form';
 
 export default class Login extends Component {
 

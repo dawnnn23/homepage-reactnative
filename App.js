@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 
-//import Routes from './src/Routes';
-
 export default class  App extends Component {
   render() {
     return(
@@ -15,7 +13,6 @@ export default class  App extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

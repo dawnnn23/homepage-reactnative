@@ -4,25 +4,21 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 //const jwt = require('jsonwebtoken');
 
-
 //check the path
-const keys = require('../config/keys');
-
+const keys = require('../../config/keys');
 
 const passport = require('passport');
 
 // Load User model
 //check if the path is ok
-const User = require('../models/User');
+const User = require('../../models/User');
 
 // @route   GET api/users/test
 // @desc    Tests users route
-// @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 // @route   POST api/users/register
 // @desc    Register user
-// @access  Public
 router.post('/register', (req, res) => {
 
 
@@ -52,7 +48,6 @@ router.post('/register', (req, res) => {
 });
 
 // @route   GET api/users/login
-// @desc    Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
  
