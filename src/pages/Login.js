@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput, Image } from 'react-native';
+import {NetworkInfo} from 'react-native-network-info';
+
 
 export default class Login extends Component {
 
@@ -9,10 +11,16 @@ export default class Login extends Component {
     }
 
     login= () => {
-
         //Post data to our express backend point
+        var address='';
+        NetworkInfo.getIPAddress().then(ipAddress => {
+            address = ipAddress;
+          });
+          
+        // address=address+':5000/api/users/login';
+        alert(address);
 
-        fetch('enteraddresshere',{
+        fetch('',{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',

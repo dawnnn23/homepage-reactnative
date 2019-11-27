@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import {NetworkInfo} from 'react-native-network-info';
 
 export default class Signup extends Component {
 
@@ -10,9 +11,17 @@ export default class Signup extends Component {
     }
 
     register = () => {
+
         //Post data to our express backend point
 
-        fetch('api/register',{
+        NetworkInfo.getIPAddress().then(ipAddress => {
+            console.log(ipAddress);
+          });
+        var address='192.168.100.122:5000/api/users/register';
+        //alert(address);
+        
+
+        fetch('',{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
@@ -22,19 +31,17 @@ export default class Signup extends Component {
                 email : this.state.email,
                 password : this.state.password
             })
-        })
-        .then((response) => response.json())
-        .then((res) => {
-            if(res.success === true) {
-                var email = res.message;
-                //alert("You are now registered!");
-                //this.props.navigator.push({
-                //    id: 'Memberarea'
-                //})
-            } else {
-                alert(res.message);
+        }) .then(function (response) {
+                return response.json();
+        }).then(function (result) { 
+            if(!result.error){
+                alert("User register successfully!");
+            }else{
+                Alert.alert(result.error_msg);
             }
-        }).done();
+        }).catch(function (error) {
+            alert("result:"+error);
+        });
     }
 
     goBack = () => {

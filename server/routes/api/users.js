@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+var ip = require('ip').address();
 //const jwt = require('jsonwebtoken');
 
 //check the path
@@ -15,17 +16,15 @@ const User = require('../../models/User');
 
 // @route   GET api/users/test
 // @desc    Tests users route
-router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
+router.get('/test', (req, res) => res.json({ msg: {ip} }));
 
 // @route   POST api/users/register
 // @desc    Register user
 router.post('/register', (req, res) => {
 
-
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = 'Email already exists';
-      return res.status(400).json(errors);
+      return res.status(400).json({ message: 'Email already registered!' });
     } else {
 
       const newUser = new User({
@@ -51,7 +50,6 @@ router.post('/register', (req, res) => {
 // @access  Public
 router.post('/login', (req, res) => {
  
-
   const email = req.body.email;
   const password = req.body.password;
 
@@ -59,17 +57,16 @@ router.post('/login', (req, res) => {
   User.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      return res.status(404).json(errors);
+      return res.status(404).json({ message: 'User does not exist!' });
     }
-
+    
     // Check Password
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        return res.status(200);
+        return res.status(200).json({ message: 'User logged in!' });
       } else {
-        errors.password = 'Password incorrect';
-        return res.status(400).json(errors);
+        return res.status(400).json({ message: 'Incorrect password!' });
       }
     });
   });
