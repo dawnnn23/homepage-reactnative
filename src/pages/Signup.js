@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import {NetworkInfo} from 'react-native-network-info';
+import {LOCHOST as LOCHOST} from '../constants/index'
+
 
 export default class Signup extends Component {
 
@@ -13,15 +13,10 @@ export default class Signup extends Component {
     register = () => {
 
         //Post data to our express backend point
-
-        NetworkInfo.getIPAddress().then(ipAddress => {
-            console.log(ipAddress);
-          });
-        var address='192.168.100.122:5000/api/users/register';
-        //alert(address);
         
+        var address = 'http://' + LOCHOST + ':5000/api/users/register';
 
-        fetch('',{
+        fetch({address},{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',

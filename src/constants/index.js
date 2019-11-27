@@ -1,0 +1,1 @@
+export const LOCHOST = "192.168.1.118";
