@@ -16,7 +16,7 @@ export default class Signup extends Component {
         
         var address = 'http://' + LOCHOST + ':5000/api/users/register';
 
-        fetch({address},{
+        fetch(address,{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
@@ -26,13 +26,14 @@ export default class Signup extends Component {
                 email : this.state.email,
                 password : this.state.password
             })
-        }) .then(function (response) {
+        }).then(function (response) {
                 return response.json();
         }).then(function (result) { 
-            if(!result.error){
-                alert("User register successfully!");
+            console.log(result.status);
+            if(result.status == '400'){
+                alert("Email already exists!");
             }else{
-                Alert.alert(result.error_msg);
+                alert("User registered successfully!");
             }
         }).catch(function (error) {
             alert("result:"+error);

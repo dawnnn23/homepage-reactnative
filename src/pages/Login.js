@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput, Image } from 'react-native';
-import {NetworkInfo} from 'react-native-network-info';
+import {LOCHOST as LOCHOST} from '../constants/index'
 
 
 export default class Login extends Component {
@@ -12,15 +12,10 @@ export default class Login extends Component {
 
     login= () => {
         //Post data to our express backend point
-        var address='';
-        NetworkInfo.getIPAddress().then(ipAddress => {
-            address = ipAddress;
-          });
-          
-        // address=address+':5000/api/users/login';
-        alert(address);
 
-        fetch('',{
+        var address = 'http://' + LOCHOST + ':5000/api/users/login';
+       
+        fetch(address,{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
@@ -30,23 +25,21 @@ export default class Login extends Component {
                 email : this.state.email,
                 password : this.state.password
             })
-        })
-        .then((response) => response.json())
-        .then((res) => {
-            if(res.success === true) {
-                //var email = res.message;
-                alert("You are now logged in!");
-                //this.props.navigator.push({
-                //    id: 'Memberarea'
-                //})
-            } else {
-                alert("Try again!");
+        }).then(function (response) {
+            return response.json();
+        }).then(function (result) { 
+            console.log(result.status);
+            if(result.status == '200'){
+
+                alert("User logged in successfully!");
+            }else{
+                alert(result.message);
             }
-        }).done();
-        
-        //test
-        //alert(this.state.email);
+        }).catch(function (error) {
+            alert("result:"+error);
+        });
     }
+
     goBack = () => {
         alert("No navigation yet!")
     }
